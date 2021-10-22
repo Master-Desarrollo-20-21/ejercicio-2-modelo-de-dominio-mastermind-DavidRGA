@@ -1,0 +1,77 @@
+@startuml
+
+title Mastermind Domain Model Diagram
+
+
+Class Mastermind
+Class Turn
+Class Player
+Class Score
+Class Codemaker
+Class Codebraker
+Class SecretCode
+Class GuessIntent
+Class AnswerToGuessIntent
+
+
+Class Color
+Class Board
+Class Square
+Class Coordinate
+
+Class Piece
+Class Black
+Class White
+Class Red
+Class Blue
+Class Green
+Class Yellow
+Class Pink 
+Class Brown
+Class Blank
+Class BlackPin
+Class WhitePin
+
+
+Mastermind *--> Board
+Board *--> "(15x5)" Square 
+Mastermind *--> Turn 
+Mastermind *--> "2" Player
+Turn --> "2" Player 
+Player <|-- Codebraker
+Player <|-- Codemaker
+Player *--> Score
+Codemaker --> SecretCode : creates
+Codemaker ..> GuessIntent : checks
+Codemaker ..> AnswerToGuessIntent
+
+AnswerToGuessIntent <|-- BlackPin : color&position
+AnswerToGuessIntent <|-- WhitePin : color
+AnswerToGuessIntent <|-- Blank : no matches
+
+SecretCode *--> "5" Piece : made of
+Codebraker --> "1..15" GuessIntent
+Codebraker ..> AnswerToGuessIntent : checks
+GuessIntent ..> SecretCode
+GuessIntent --> AnswerToGuessIntent
+
+
+Color <|-- Black
+Color <|-- White
+Color <|-- Red
+Color <|-- Blue
+Color <|-- Green
+Color <|-- Yellow
+Color <|-- Pink
+Color <|-- Brown
+
+Square *--> Coordinate
+Coordinate o--> Piece
+
+
+Piece *--> Color
+
+
+
+
+@enduml
